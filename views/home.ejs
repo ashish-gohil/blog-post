@@ -1,0 +1,42 @@
+<%- include('partials/header');-%>
+
+
+    <% posts.forEach((post)=>{ %>
+        <div class="form-group">
+            <h3>
+                <a href="/posts/<%=post.title%>">
+                    <%= post.title %></a>
+            </h3>
+            <p style="display:inline">
+                <% if(post.postData.length <=100 ){ %>
+                    <%= post.postData %>
+                        <% }else{ %>
+                            <%= post.postData.slice(0,100) %>
+                                <p id="<%=post.title%>-more" style="display:none;">
+                                    <%= post.postData.slice(100) %>
+                                        <a id='<%=post.title%>-less-link'
+                                            onclick="javascript:readLess('<%= post.title %>' )">
+                                            << Read Less</a>
+                                </p>
+                                <a id='<%=post.title%>-more-link'
+                                    onclick="javascript:readMore('<%= post.title %>')">Read More >></a>
+
+
+                                <% } %>
+            </p>
+        </div>
+        <script>
+            function readMore(title) {
+                document.querySelector('#' + title + '-more').style.display = 'inline';
+                document.getElementById(title + '-more-link').style.display = 'none';
+                document.getElementById(title + '-less-link').style.display = 'inline';
+            }
+            function readLess(title) {
+                document.querySelector('#' + title + '-more').style.display = 'none';
+                document.getElementById(title + '-more-link').style.display = 'inline';
+                document.getElementById(title + '-less-link').style.display = 'none';
+            } 
+        </script>
+
+        <% }) %>
+            <%- include('partials/footer');-%>
